@@ -174,26 +174,15 @@ ggplot(data=customers_transformed, aes(amount)) + geom_histogram(binwidth = 0.4)
                      breaks = seq(1.5, 7, 0.5))
 ```
 
-```
-## Warning: Removed 68 rows containing non-finite values (stat_bin).
-```
-
-```
-## Warning: Removed 3 rows containing missing values (geom_bar).
-```
 
 ![](module1_files/figure-html/unnamed-chunk-8-1.png)
 
 ### Standardizing variables
+Let's normalizes all elements of the dataframe such as: x <- (x - mu) / sigma
+Now each variable has a mean = 0 and sigma = 1. This also allows to get rid of units ($, days...) to better compare these variables together.
 
 ```r
 customers_transformed <- scale(customers_transformed)      
-# normalizes all elements of the dataframe such as 
-# x <- (x - mu) / sigma
-# now each variable has a mean = 0 and sigma = 1
-# also allows to get rid of units ($, days...) 
-# to better compare these variables together
-
 head(customers_transformed) 
 ```
 
