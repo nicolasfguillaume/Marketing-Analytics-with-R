@@ -111,9 +111,6 @@ library(ggplot2)
 ggplot(data=customers, aes(recency)) + geom_histogram(color = I('black'), fill= I('red3'))
 ```
 
-```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
 
 ![](module1_files/figure-html/unnamed-chunk-5-1.png)
 
@@ -121,9 +118,6 @@ ggplot(data=customers, aes(recency)) + geom_histogram(color = I('black'), fill= 
 ggplot(data=customers, aes(frequency)) + geom_histogram(color = I('black'), fill= I('orange'))
 ```
 
-```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
 
 ![](module1_files/figure-html/unnamed-chunk-5-2.png)
 
@@ -133,17 +127,10 @@ ggplot(data=customers, aes(amount)) + geom_histogram(binwidth = 10, color = I('b
                      breaks = seq(0, 500, 20))
 ```
 
-```
-## Warning: Removed 167 rows containing non-finite values (stat_bin).
-```
-
-```
-## Warning: Removed 2 rows containing missing values (geom_bar).
-```
 
 ![](module1_files/figure-html/unnamed-chunk-5-3.png)
 
-The frequency and monetary value distribution are skewed. The problem is not statistical, it's managerial. It requires data transformation (log).
+The frequency and monetary value distribution are skewed. It requires data transformation (log).
 
 ***
 
