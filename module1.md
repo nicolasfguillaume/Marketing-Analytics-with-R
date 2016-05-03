@@ -249,7 +249,7 @@ plot(c)  # plot the dendogram
 members <- cutree(c, k = 9)
 ```
 
-### Showing the 30 first customers and their corresponding segment number (1-9)
+### 30 first customers and their corresponding segment number (1-9)
 
 ```r
 members[1:30]
@@ -262,7 +262,7 @@ members[1:30]
 ##    3    6    7    4    5    1    5    8    5    6    1    3    3    7    2
 ```
 
-### Showing the frequency table (number of customer in each segment)
+### Frequency table (number of customer in each segment)
 
 ```r
 table(members)
@@ -274,7 +274,7 @@ table(members)
 ## 309 212 130 306  49  83 236 317 200
 ```
 
-### Showing the customer profiles of each segment (recency, frequency and monetary value)
+### Customer profiles of each segment (recency, frequency and monetary value)
 
 ```r
 aggregate(customers_sample[, 2:4], by = list(members), mean)
@@ -299,7 +299,7 @@ aggregate(customers_sample[, 2:4], by = list(members), mean)
 
 ## Analysis
 
-The above table summarizes the diversity of profile existing between the 18k customers of the database. For example:
+The above table summarizes the diversity of profile existing between the 18,417 customers of the database. For example:
 
 - segment #4 has an average recency of 162 days, an average of 2.4 purchases made in the past and an average purchase amount of $41.10
 
