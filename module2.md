@@ -109,16 +109,6 @@ summary(customers_2015)
 ##  Max.   :4500.00
 ```
 
-```r
-#library(sqldf)
-#customers_2015 = sqldf("SELECT customer_id,
-#                               MIN(days_since) AS 'recency',
-#                               MAX(days_since) AS 'first_purchase',
-#                               COUNT(*) AS 'frequency',
-#                               AVG(purchase_amount) AS 'amount'
-#                        FROM data GROUP BY 1")
-```
-
 ### Doing more data exploration
 
 ```r
