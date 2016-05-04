@@ -9,7 +9,6 @@ To validate Module 4 and correctly answer the questions will require that you pe
 ### Loading the dataset
 
 ```r
-setwd('C:/Users/Nicolas/Desktop/Projets Tech/MOOCS/Marketing Analytics/')
 data = read.delim(file = 'purchases.txt', header = FALSE, sep = '\t', dec = '.')
 ```
 
@@ -28,26 +27,7 @@ data$days_since       = as.numeric(difftime(time1 = "2016-01-01",
 
 ```r
 library(dplyr)
-```
 
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 customers_2015 <- data %>% group_by(customer_id) %>% 
                   summarize(   # creates new variables:
                     recency = min(days_since),
