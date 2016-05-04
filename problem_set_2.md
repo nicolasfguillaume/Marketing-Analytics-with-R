@@ -118,18 +118,10 @@ library(ggplot2)
 ggplot(data=customers_2015, aes(recency)) + geom_histogram(color = I('black'), fill= I('red3'))
 ```
 
-```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
-
 ![](problem_set_2_files/figure-html/unnamed-chunk-5-1.png)
 
 ```r
 ggplot(data=customers_2015, aes(frequency)) + geom_histogram(color = I('black'), fill= I('orange'))
-```
-
-```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 ![](problem_set_2_files/figure-html/unnamed-chunk-5-2.png)
@@ -140,13 +132,6 @@ ggplot(data=customers_2015, aes(amount)) + geom_histogram(binwidth = 10, color =
                      breaks = seq(0, 500, 20))
 ```
 
-```
-## Warning: Removed 167 rows containing non-finite values (stat_bin).
-```
-
-```
-## Warning: Removed 2 rows containing missing values (geom_bar).
-```
 
 ![](problem_set_2_files/figure-html/unnamed-chunk-5-3.png)
 
@@ -172,8 +157,8 @@ The segment structure evolves as follows:
   * Warm high value (warm & amount>=$100)
 - Active   (last purchase <= 1 year)
   * New active (active & first purchase <= 1 year)        
-    # New active low (new active & amount<$100)        <- new segment to add now
-    # New active high (new active & amount>=$100)      <- new segment to add now
+    # New active low (new active & amount<$100)        <- new segment to add now  
+    # New active high (new active & amount>=$100)      <- new segment to add now  
   * Active low value (active & amount<$100)
   * Active high value (active & amount>=$100)
 
