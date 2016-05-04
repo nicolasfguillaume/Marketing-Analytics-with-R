@@ -9,6 +9,7 @@ To validate Module 4 and correctly answer the questions will require that you pe
 ### Loading the dataset
 
 ```r
+setwd('C:/Users/Nicolas/Desktop/Projets Tech/MOOCS/Marketing Analytics/')
 data = read.delim(file = 'purchases.txt', header = FALSE, sep = '\t', dec = '.')
 ```
 
@@ -27,13 +28,47 @@ data$days_since       = as.numeric(difftime(time1 = "2016-01-01",
 
 ```r
 library(dplyr)
+```
 
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
 customers_2015 <- data %>% group_by(customer_id) %>% 
                   summarize(   # creates new variables:
                     recency = min(days_since),
                     first_purchase = max(days_since),
                     frequency = n(),
                     amount = mean(purchase_amount)  ) 
+
+head(customers_2015)
+```
+
+```
+## Source: local data frame [6 x 5]
+## 
+##   customer_id   recency first_purchase frequency    amount
+##         (int)     (dbl)          (dbl)     (int)     (dbl)
+## 1          10 3828.9583       3828.958         1  30.00000
+## 2          80  342.9583       3750.958         7  71.42857
+## 3          90  757.9583       3782.958        10 115.80000
+## 4         120 1400.9583       1400.958         1  20.00000
+## 5         130 2969.9583       3709.958         2  50.00000
+## 6         160 2962.9583       3576.958         2  30.00000
 ```
 
 ### Segmenting the customer database in 2015
@@ -66,6 +101,13 @@ customers_2015$segment <- factor(x = customers_2015$segment,
                                 levels = c("inactive", "cold",
                             "warm high value", "warm low value", "new warm",
                             "active high value", "active low value", "new active"))
+head(customers_2015$segment)
+```
+
+```
+## [1] inactive         active low value cold             inactive        
+## [5] inactive         inactive        
+## 8 Levels: inactive cold warm high value warm low value ... new active
 ```
 
 
