@@ -157,8 +157,8 @@ The segment structure evolves as follows:
   * Warm high value (warm & amount>=$100)
 - Active   (last purchase <= 1 year)
   * New active (active & first purchase <= 1 year)        
-    # New active low (new active & amount<$100)             <- new segment to add  
-    # New active high (new active & amount>=$100)           <- new segment to add   
+    # New active low (new active & amount<$100) ..................... <- new segment to add  
+    # New active high (new active & amount>=$100) ................... <- new segment to add   
   * Active low value (active & amount<$100)
   * Active high value (active & amount>=$100)
 
