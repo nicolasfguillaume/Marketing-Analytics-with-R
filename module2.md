@@ -117,9 +117,6 @@ library(ggplot2)
 ggplot(data=customers_2015, aes(recency)) + geom_histogram(color = I('black'), fill= I('red3'))
 ```
 
-```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
 
 ![](module2_files/figure-html/unnamed-chunk-5-1.png)
 
@@ -127,9 +124,6 @@ ggplot(data=customers_2015, aes(recency)) + geom_histogram(color = I('black'), f
 ggplot(data=customers_2015, aes(frequency)) + geom_histogram(color = I('black'), fill= I('orange'))
 ```
 
-```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
 
 ![](module2_files/figure-html/unnamed-chunk-5-2.png)
 
@@ -139,13 +133,6 @@ ggplot(data=customers_2015, aes(amount)) + geom_histogram(binwidth = 10, color =
                      breaks = seq(0, 500, 20))
 ```
 
-```
-## Warning: Removed 167 rows containing non-finite values (stat_bin).
-```
-
-```
-## Warning: Removed 2 rows containing missing values (geom_bar).
-```
 
 ![](module2_files/figure-html/unnamed-chunk-5-3.png)
 
