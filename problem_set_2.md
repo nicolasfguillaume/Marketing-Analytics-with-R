@@ -9,7 +9,6 @@ To validate Module 2 and correctly answer the questions will require that you pe
 ### Loading the dataset
 
 ```r
-setwd('C:/Users/Nicolas/Desktop/Projets Tech/MOOCS/Marketing Analytics/Module 2/')
 data <- read.delim(file = 'purchases.txt', header = FALSE, sep = '\t', dec = '.')
 ```
 
@@ -66,26 +65,7 @@ Let's compute key marketing indicators: Recency, Frequency, and Monetary Value (
 
 ```r
 library(dplyr)
-```
 
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 customers_2015 <- data %>% group_by(customer_id) %>%    # first groups data by customer_id
                   summarise(                 # then summarizes and creates new variables
                        recency = min(days_since),     # number of days since last purchase
