@@ -8,7 +8,6 @@ April 20, 2016
 ### Loading the dataset
 
 ```r
-setwd('C:/Users/Nicolas/Desktop/Projets Tech/MOOCS/Marketing Analytics/')
 data <- read.delim(file = 'purchases.txt', header = FALSE, sep = '\t', dec = '.')
 ```
 
@@ -28,26 +27,7 @@ Let's compute key marketing indicators: RFM variables as of a year ago, in 2014
 
 ```r
 library(dplyr)
-```
 
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 customers_2014 <- data %>% filter(days_since > 365) %>% 
                   group_by(customer_id) %>% 
                   summarize(   # creates new variables:
