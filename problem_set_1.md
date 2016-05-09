@@ -114,13 +114,11 @@ library(ggplot2)
 ggplot(data=customers, aes(recency)) + geom_histogram(color = I('black'), fill= I('red3'))
 ```
 
-
 ![](problem_set_1_files/figure-html/unnamed-chunk-5-1.png)
 
 ```r
 ggplot(data=customers, aes(frequency)) + geom_histogram(color = I('black'), fill= I('orange'))
 ```
-
 
 ![](problem_set_1_files/figure-html/unnamed-chunk-5-2.png)
 
@@ -130,10 +128,9 @@ ggplot(data=customers, aes(amount)) + geom_histogram(binwidth = 10, color = I('b
                      breaks = seq(0, 500, 20))
 ```
 
-
 ![](problem_set_1_files/figure-html/unnamed-chunk-5-3.png)
 
-The frequency and monetary value distribution are skewed. It requires data transformation (log).
+The frequency and monetary value distribution are skewed. The problem is not statistical, it's managerial. It requires data transformation (log).
 
 ***
 
@@ -168,20 +165,32 @@ head(customers_transformed)
 ## 6 2962.9583         2  30.00000
 ```
 
-### Taking the log-transform of the frequency
+### Taking the log-transform of the amount
 
 ```r
-customers_transformed$frequencylog <- log(customers_transformed$frequency)
-customers_transformed$frequency <- NULL
+customers_transformed$amount <- log(customers_transformed$amount)
 
-# plot the log of the frequency
-ggplot(data=customers_transformed, aes(frequencylog)) + geom_histogram() +
-  scale_x_continuous(limits = c(0, 5),
-                     breaks = seq(0, 5, 1))
+# plot the log of the amount
+ggplot(data=customers_transformed, aes(amount)) + geom_histogram(binwidth = 0.4) +
+  scale_x_continuous(limits = c(1.5, 7),
+                     breaks = seq(1.5, 7, 0.5))
 ```
 
 
 ![](problem_set_1_files/figure-html/unnamed-chunk-8-1.png)
+
+### Taking the log-transform of the frequency
+
+```r
+customers_transformed$frequency <- log(customers_transformed$frequency)
+
+# plot the log of the frequency
+ggplot(data=customers_transformed, aes(frequency)) + geom_histogram() +
+  scale_x_continuous(limits = c(0, 5),
+                     breaks = seq(0, 5, 1))
+```
+
+![](problem_set_1_files/figure-html/unnamed-chunk-9-1.png)
 
 ### Standardizing variables
 
@@ -197,13 +206,13 @@ head(customers_transformed)
 ```
 
 ```
-##        recency      amount frequencylog
-## 10   2.3819788 -0.18005290  -0.85366742
-## 80  -0.8415073  0.08833621   1.64194738
-## 90  -0.4577590  0.37579019   2.09938025
-## 120  0.1368198 -0.24483648  -0.85366742
-## 130  1.5876660 -0.05048574   0.03528851
-## 160  1.5811931 -0.18005290   0.03528851
+##        recency   frequency     amount
+## 10   2.3819788 -0.85366742 -0.2357955
+## 80  -0.8415073  1.64194738  0.8943622
+## 90  -0.4577590  2.09938025  1.5238194
+## 120  0.1368198 -0.85366742 -0.7640251
+## 130  1.5876660  0.03528851  0.4296952
+## 160  1.5811931  0.03528851 -0.2357955
 ```
 
 Data is now ready to be segmented.
@@ -251,7 +260,7 @@ c <- hclust(d, method="ward.D2")
 plot(c)     # Plot the dendogram
 ```
 
-![](problem_set_1_files/figure-html/unnamed-chunk-13-1.png)
+![](problem_set_1_files/figure-html/unnamed-chunk-14-1.png)
 
 ### Cuting at 5 segments (ie. 5 clusters)
 
@@ -260,7 +269,7 @@ members <- cutree(c, k = 5)
 #rect.hclust(c, k=5, border="red")   # draw dendogram with red borders around the clusters
 ```
 
-### 30 first customers and their corresponding segment number (1-5)
+### Showing the 30 first customers and their corresponding segment number (1-5)
 
 ```r
 members[1:30]
@@ -268,12 +277,12 @@ members[1:30]
 
 ```
 ##   10  260  510  850 1040 1430 1860 2160 2380 2700 3000 3140 3650 3920 4240 
-##    1    1    1    2    3    1    4    5    2    3    3    1    2    1    1 
+##    1    1    1    2    2    3    4    5    2    3    3    1    2    1    1 
 ## 4470 4710 4910 5230 5520 5710 5920 6080 6240 6410 6600 6750 6940 7100 7330 
-##    2    2    3    3    1    1    5    3    3    3    1    2    2    3    1
+##    2    5    3    2    1    1    5    3    1    3    3    2    2    3    3
 ```
 
-### Frequency table (number of customer in each segment)
+### Showing the frequency table (number of customer in each segment)
 
 ```r
 table(members)
@@ -282,10 +291,10 @@ table(members)
 ```
 ## members
 ##   1   2   3   4   5 
-## 542 187 584 481  48
+## 408 470 314 555  95
 ```
 
-### Customer profiles in each segment 
+### Showing the customer profiles in each segment 
 In terms of recency, frequency and monetary value:
 
 ```r
@@ -294,11 +303,11 @@ aggregate(customers_sample[, 2:4], by = list(members), mean)
 
 ```
 ##   Group.1   recency frequency    amount
-## 1       1 2626.5450  1.265683  32.58054
-## 2       2  188.0546  9.502674  57.49499
-## 3       3  820.7443  3.525685  43.01464
-## 4       4  696.8440  1.000000  41.60707
-## 5       5  997.8125  3.395833 489.00804
+## 1       1 2757.1765  1.117647  35.00041
+## 2       2  305.3094  5.306383  38.29947
+## 3       3 1828.2800  3.426752  32.01873
+## 4       4  758.5962  1.113514  45.24456
+## 5       5  606.5373  5.494737 311.26964
 ```
 
 ```r
@@ -319,10 +328,10 @@ table(members)
 ```
 ## members
 ##   1   2   3   4   5 
-## 542 187 584 481  48
+## 408 470 314 555  95
 ```
 
-The largest segment is segment #3, which has 584 customers.
+The largest segment is segment #4, which has 555 customers.
 
 2/ What is the average purchase amount of the segment which contains, on average, the customers who have made their last purchase the most recently?
 
@@ -333,15 +342,15 @@ aggregate(customers_sample[, 2:4], by = list(members), mean)
 
 ```
 ##   Group.1   recency frequency    amount
-## 1       1 2626.5450  1.265683  32.58054
-## 2       2  188.0546  9.502674  57.49499
-## 3       3  820.7443  3.525685  43.01464
-## 4       4  696.8440  1.000000  41.60707
-## 5       5  997.8125  3.395833 489.00804
+## 1       1 2757.1765  1.117647  35.00041
+## 2       2  305.3094  5.306383  38.29947
+## 3       3 1828.2800  3.426752  32.01873
+## 4       4  758.5962  1.113514  45.24456
+## 5       5  606.5373  5.494737 311.26964
 ```
 
-The segment #2 has customers who made their last purchase 188 days ago on average.
-For this segment, the average purchase amount is $57.5.
+The segment #2 has customers who made their last purchase 305 days ago on average.
+For this segment, the average purchase amount is $38.2.
 
 3/ What is the most relevant criteria to determine the best number of segments?
 
@@ -371,7 +380,7 @@ members_mat[c('5920'), ]
 ##    5
 ```
 
-No, customer #260 and customer #5920 don't belong to the same segment. 
+No, customer #260 and customer #5920 belong to different segments. 
 
 5/ Looking at the average profile of segment 1, would you say that members of this segment are typically...
 
@@ -382,11 +391,11 @@ aggregate(customers_sample[, 2:4], by = list(members), mean)
 
 ```
 ##   Group.1   recency frequency    amount
-## 1       1 2626.5450  1.265683  32.58054
-## 2       2  188.0546  9.502674  57.49499
-## 3       3  820.7443  3.525685  43.01464
-## 4       4  696.8440  1.000000  41.60707
-## 5       5  997.8125  3.395833 489.00804
+## 1       1 2757.1765  1.117647  35.00041
+## 2       2  305.3094  5.306383  38.29947
+## 3       3 1828.2800  3.426752  32.01873
+## 4       4  758.5962  1.113514  45.24456
+## 5       5  606.5373  5.494737 311.26964
 ```
 
-The member of segment #1 has an average recency of 2626 days (7.2 years) with an average frequency of about 1 and an average purchase amount of $32. It seems that the member of this segment were one-time shopper in this store and that it's unlikely that they will return. They are customers with poor prospects in terms of loyalty and profitability, due to the few purchases they have made so far.
+The member of segment #1 has an average recency of 2757 days (7.5 years) with an average frequency of about 1.1 and an average purchase amount of $35. It seems that the member of this segment were one-time shopper in this store and that it's unlikely that they will return. They are customers with poor prospects in terms of loyalty and profitability, due to the few purchases they have made so far.
